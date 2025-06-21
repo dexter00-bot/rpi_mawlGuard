@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block title %}Scan Activity{% endblock %}
+{% block content %}
+
+<div class="bg-[#1f1f2e] rounded-2xl p-6 shadow-lg h-[95vh] overflow-y-auto">
+
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-semibold text-white">Scan Activity</h1>
+    <a href="/start-scan" class="bg-purple-600 hover:bg-purple-700 text-white text-sm px-4 py-2 rounded-lg shadow">
+      + Start New Scan
+    </a>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="grid grid-cols-4 gap-4 mb-6">
+    {% for label, count, color in [
+      ['Total Scans Today', 14, 'bg-blue-600'],
+      ['Threats Detected', 6, 'bg-red-600'],
+      ['Completed Scans', 11, 'bg-green-600'],
+      ['Failed Scans', 2, 'bg-orange-500']
+    ] %}
+    <div class="p-4 rounded-xl {{ color }} bg-opacity-10 text-center shadow hover:bg-opacity-20 transition">
+      <div class="text-sm text-gray-300">{{ label }}</div>
+      <div class="text-2xl font-bold">{{ count }}</div>
+      <div class="text-purple-400 text-sm mt-1">Updated just now</div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Recent Malware Threats -->
+  <div class="mb-6">
+    <h2 class="text-lg font-semibold text-white mb-3">Recent Detected Malware</h2>
+    <div class="grid grid-cols-3 gap-4">
+      <div class="bg-[#2a2a3b] p-4 rounded-lg shadow hover:bg-[#2f2f44] transition">
+        <div class="text-red-300 font-bold mb-1">Trojan.GenericKD.4002</div>
+        <div class="text-xs text-gray-400">/home/user/Downloads/crack.exe</div>
+        <div class="text-xs mt-2 text-yellow-400">Status: Quarantined</div>
+      </div>
+      <div class="bg-[#2a2a3b] p-4 rounded-lg shadow hover:bg-[#2f2f44] transition">
+        <div class="text-orange-300 font-bold mb-1">Adware.Win32.Popup</div>
+        <div class="text-xs text-gray-400">/tmp/install.js</div>
+        <div class="text-xs mt-2 text-red-400">Status: Deleted</div>
+      </div>
+      <div class="bg-[#2a2a3b] p-4 rounded-lg shadow hover:bg-[#2f2f44] transition">
+        <div class="text-yellow-300 font-bold mb-1">Worm.AutoRun.Gen</div>
+        <div class="text-xs text-gray-400">/media/usb/autoplay.inf</div>
+        <div class="text-xs mt-2 text-green-400">Status: Ignored</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scan Logs Table -->
+  <div class="overflow-x-auto rounded-xl shadow">
+    <table class="min-w-full bg-[#2a2a3b] text-left text-sm text-gray-300">
+      <thead class="bg-[#1e1e2f] text-gray-400 uppercase text-xs">
+        <tr>
+          <th class="px-4 py-3">Time</th>
+          <th class="px-4 py-3">Scan Type</th>
+          <th class="px-4 py-3">Target Path</th>
+          <th class="px-4 py-3">Status</th>
+          <th class="px-4 py-3">Threats</th>
+          <th class="px-4 py-3">Action</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-[#1e1e2f]">
+        <tr class="hover:bg-[#2f2f44] transition">
+          <td class="px-4 py-3">2025-06-19 14:00</td>
+          <td class="px-4 py-3">Quick Scan</td>
+          <td class="px-4 py-3">/home/user/Downloads</td>
+          <td class="px-4 py-3 text-green-400 font-medium">Completed</td>
+          <td class="px-4 py-3">3</td>
+          <td class="px-4 py-3">
+            <a href="#" class="text-purple-400 hover:underline">View</a>
+          </td>
+        </tr>
+        <tr class="hover:bg-[#2f2f44] transition">
+          <td class="px-4 py-3">2025-06-18 18:45</td>
+          <td class="px-4 py-3">Full Scan</td>
+          <td class="px-4 py-3">/</td>
+          <td class="px-4 py-3 text-red-400 font-medium">Failed</td>
+          <td class="px-4 py-3">-</td>
+          <td class="px-4 py-3">
+            <a href="#" class="text-purple-400 hover:underline">Retry</a>
+          </td>
+        </tr>
+        <tr class="hover:bg-[#2f2f44] transition">
+          <td class="px-4 py-3">2025-06-18 12:10</td>
+          <td class="px-4 py-3">Folder Scan</td>
+          <td class="px-4 py-3">/var/www/html/uploads</td>
+          <td class="px-4 py-3 text-green-400 font-medium">Completed</td>
+          <td class="px-4 py-3">2</td>
+          <td class="px-4 py-3">
+            <a href="#" class="text-purple-400 hover:underline">View</a>
+          </td>
+        </tr>
+        <tr class="hover:bg-[#2f2f44] transition">
+          <td class="px-4 py-3">2025-06-17 09:25</td>
+          <td class="px-4 py-3">Real-time</td>
+          <td class="px-4 py-3">/usr/bin/malicious.sh</td>
+          <td class="px-4 py-3 text-yellow-400 font-medium">Stopped</td>
+          <td class="px-4 py-3">1</td>
+          <td class="px-4 py-3">
+            <a href="#" class="text-red-400 hover:underline">Quarantine</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

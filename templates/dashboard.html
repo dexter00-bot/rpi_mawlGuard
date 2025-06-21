@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block title %}API Security{% endblock %}
+{% block content %}
+
+<!-- Main Dashboard Container -->
+<div class="bg-[#1f1f2e] rounded-2xl p-6 shadow-lg h-[95vh] overflow-y-auto">
+
+  <h1 class="text-2xl font-semibold mb-6 text-white">API Security</h1>
+
+  <!-- Status Cards -->
+  <div class="grid grid-cols-4 gap-4 mb-6">
+    {% for title, value, color in [
+      ['Critical', 223, 'bg-red-600'],
+      ['High', 269, 'bg-orange-500'],
+      ['Medium', 458, 'bg-yellow-500'],
+      ['Low', 789, 'bg-green-500']
+    ] %}
+    <div class="p-4 rounded-xl {{ color }} bg-opacity-10 text-center shadow hover:bg-opacity-20 transition">
+      <div class="text-sm text-gray-300">{{ title }}</div>
+      <div class="text-2xl font-bold">{{ value }}</div>
+      <div class="text-green-400 text-sm mt-1">+3.03% this week</div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Grid Content -->
+  <div class="grid grid-cols-3 gap-6 mb-6">
+    <!-- Top Address - span 2 columns -->
+    <div class="bg-[#2a2a3b] p-4 rounded-xl shadow col-span-2">
+      <div class="mb-2 text-gray-300">Top Address</div>
+      <div class="h-48 bg-gradient-to-br from-purple-900 to-purple-700 rounded-lg opacity-80 flex items-center justify-center">
+        <span class="text-purple-300">[Heatmap Placeholder]</span>
+      </div>
+    </div>
+
+    <!-- IP Addresses - Leaflet Map -->
+    <div class="bg-[#2a2a3b] p-4 rounded-xl shadow relative">
+      <div class="mb-2 text-gray-300">IP Addresses</div>
+      <div id="ipMap" class="h-48 rounded-lg z-0"></div>
+    </div>
+  </div>
+
+  <!-- Malware Detection History & Quarantine -->
+  <div class="grid grid-cols-3 gap-6">
+    <!-- History -->
+    <div class="bg-[#2a2a3b] p-4 rounded-xl shadow col-span-1 h-[430px] overflow-y-auto">
+      <div class="text-gray-300 mb-4 text-lg font-semibold">Malware Detection History</div>
+
+      <ul class="space-y-3 text-sm">
+        <li class="bg-[#1e1e2f] p-3 rounded-lg hover:bg-[#2f2f44]">
+          <div class="text-purple-400 font-medium">malicious_file.exe</div>
+          <div class="text-gray-400 text-xs">Detected: 2025-06-19 14:32</div>
+          <div class="text-red-400 text-xs italic mt-1">Result: Quarantined</div>
+        </li>
+
+        <li class="bg-[#1e1e2f] p-3 rounded-lg hover:bg-[#2f2f44]">
+          <div class="text-purple-400 font-medium">trojan_payload.docx</div>
+          <div class="text-gray-400 text-xs">Detected: 2025-06-18 09:16</div>
+          <div class="text-yellow-400 text-xs italic mt-1">Result: False Positive</div>
+        </li>
+
+        <li class="bg-[#1e1e2f] p-3 rounded-lg hover:bg-[#2f2f44]">
+          <div class="text-purple-400 font-medium">keylogger.js</div>
+          <div class="text-gray-400 text-xs">Detected: 2025-06-17 21:50</div>
+          <div class="text-green-400 text-xs italic mt-1">Result: Resolved</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Quarantined Malware -->
+    <div class="bg-[#2a2a3b] p-4 rounded-xl shadow col-span-2 h-[430px] overflow-y-auto">
+      <div class="text-gray-300 mb-4 text-lg font-semibold">Quarantined Malware</div>
+
+      <ul class="space-y-3 text-sm">
+        <li class="bg-[#1e1e2f] p-3 rounded-lg hover:bg-[#2f2f44]">
+          <div class="flex justify-between items-center mb-1">
+            <span class="text-purple-400 font-medium">malicious_file.exe</span>
+            <span class="text-red-400 font-semibold">Risk: 9.2</span>
+          </div>
+          <div class="text-gray-400 text-xs">/home/user/downloads/malicious_file.exe</div>
+          <div class="text-xs mt-1 text-yellow-400 italic">Status: Under Analysis</div>
+        </li>
+
+        <li class="bg-[#1e1e2f] p-3 rounded-lg hover:bg-[#2f2f44]">
+          <div class="flex justify-between items-center mb-1">
+            <span class="text-purple-400 font-medium">trojan_payload.docx</span>
+            <span class="text-orange-400 font-semibold">Risk: 7.5</span>
+          </div>
+          <div class="text-gray-400 text-xs">/var/www/uploads/trojan_payload.docx</div>
+          <div class="text-xs mt-1 text-green-400 italic">Status: False Positive</div>
+        </li>
+
+        <li class="bg-[#1e1e2f] p-3 rounded-lg hover:bg-[#2f2f44]">
+          <div class="flex justify-between items-center mb-1">
+            <span class="text-purple-400 font-medium">keylogger.js</span>
+            <span class="text-red-500 font-semibold">Risk: 9.8</span>
+          </div>
+          <div class="text-gray-400 text-xs">/home/user/scripts/keylogger.js</div>
+          <div class="text-xs mt-1 text-red-400 italic">Status: Confirmed Threat</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- Leaflet Map -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const map = L.map('ipMap').setView([20, 0], 2); // World centered
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Example marker
+    L.marker([37.7749, -122.4194]).addTo(map)
+      .bindPopup('Example IP: San Francisco')
+      .openPopup();
+  });
+</script>
+
+{% endblock %}

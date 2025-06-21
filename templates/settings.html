@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+
+<div class="bg-[#1f1f2e] rounded-2xl p-6 shadow-lg h-[95vh] overflow-y-auto text-white hide-scrollbar">
+  <h1 class="text-2xl font-semibold mb-6">Settings</h1>
+
+  <!-- Section: Profile Settings -->
+  <div class="mb-10">
+    <h2 class="text-lg font-semibold mb-4 text-purple-400">Profile</h2>
+    <div class="flex flex-col md:flex-row items-center gap-6 bg-[#2a2a3b] p-6 rounded-xl shadow">
+      <!-- Profile Picture -->
+      <div class="shrink-0">
+        <img src="https://via.placeholder.com/100" alt="Profile" class="w-24 h-24 rounded-full border-4 border-purple-500 object-cover">
+        <input type="file" id="profilePic" class="mt-2 text-xs text-gray-300">
+      </div>
+
+      <!-- Profile Info -->
+      <div class="flex-1 w-full">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block mb-1 text-sm text-gray-400">Full Name</label>
+            <input type="text" value="Dexter James" class="w-full p-2 rounded bg-[#1f1f2e] text-white border border-gray-600">
+          </div>
+          <div>
+            <label class="block mb-1 text-sm text-gray-400">Email Address</label>
+            <input type="email" value="dexter@example.com" class="w-full p-2 rounded bg-[#1f1f2e] text-white border border-gray-600">
+          </div>
+        </div>
+        <button class="mt-4 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg shadow">
+          Update Profile
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section: Scan Preferences -->
+  <div class="mb-10">
+    <h2 class="text-lg font-semibold mb-4 text-purple-400">Scan Preferences</h2>
+    <div class="space-y-4">
+      <div class="flex items-center justify-between bg-[#2a2a3b] p-4 rounded-xl">
+        <span>Real-time Protection</span>
+        <label class="inline-flex items-center cursor-pointer">
+          <input type="checkbox" class="sr-only peer" checked>
+          <div class="w-11 h-6 bg-gray-600 rounded-full peer peer-checked:bg-green-500 relative">
+            <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all peer-checked:translate-x-5"></div>
+          </div>
+        </label>
+      </div>
+      <div class="bg-[#2a2a3b] p-4 rounded-xl">
+        <label class="block mb-2 text-sm">Scheduled Scan</label>
+        <select class="w-full p-2 rounded bg-[#1f1f2e] text-white border border-gray-600">
+          <option>Daily</option>
+          <option selected>Weekly</option>
+          <option>Monthly</option>
+        </select>
+      </div>
+      <div class="bg-[#2a2a3b] p-4 rounded-xl">
+        <label class="block mb-2 text-sm">Excluded Folders</label>
+        <input type="text" placeholder="/home/user/temp" class="w-full p-2 rounded bg-[#1f1f2e] text-white border border-gray-600">
+      </div>
+    </div>
+  </div>
+
+  <!-- Section: Notification Settings -->
+  <div class="mb-10">
+    <h2 class="text-lg font-semibold mb-4 text-purple-400">Notification Settings</h2>
+    <div class="space-y-4">
+      <div class="flex items-center justify-between bg-[#2a2a3b] p-4 rounded-xl">
+        <span>Email Alerts</span>
+        <input type="checkbox" class="w-5 h-5 accent-purple-500" checked>
+      </div>
+      <div class="bg-[#2a2a3b] p-4 rounded-xl">
+        <label class="block mb-2 text-sm">Notification Sound</label>
+        <select class="w-full p-2 rounded bg-[#1f1f2e] text-white border border-gray-600">
+          <option>Default</option>
+          <option>Silent</option>
+          <option>Beep</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section: Updates -->
+  <div class="mb-10">
+    <h2 class="text-lg font-semibold mb-4 text-purple-400">Updates</h2>
+    <div class="space-y-4">
+      <div class="flex items-center justify-between bg-[#2a2a3b] p-4 rounded-xl">
+        <span>Auto Update</span>
+        <input type="checkbox" class="w-5 h-5 accent-purple-500" checked>
+      </div>
+      <div class="bg-[#2a2a3b] p-4 rounded-xl">
+        <p class="text-sm text-gray-400">Current Version: <span class="text-green-400">v1.5.0</span></p>
+        <p class="text-sm text-gray-400">Last Checked: <span class="text-gray-300">2025-06-18</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section: Security -->
+  <div class="mb-10">
+    <h2 class="text-lg font-semibold mb-4 text-purple-400">Security</h2>
+    <div class="space-y-4">
+      <div class="bg-[#2a2a3b] p-4 rounded-xl">
+        <label class="block mb-2 text-sm">Change Password</label>
+        <input type="password" placeholder="••••••••" class="w-full p-2 rounded bg-[#1f1f2e] text-white border border-gray-600">
+      </div>
+      <div class="flex items-center justify-between bg-[#2a2a3b] p-4 rounded-xl">
+        <span>Enable 2FA</span>
+        <input type="checkbox" class="w-5 h-5 accent-purple-500">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Hide Scrollbar Utility -->
+<style>
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>
+
+{% endblock %}

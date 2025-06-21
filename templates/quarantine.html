@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block title %}Quarantine{% endblock %}
+{% block content %}
+
+<div class="bg-[#1f1f2e] rounded-2xl p-6 shadow-lg h-[95vh] overflow-y-auto text-white hide-scrollbar">
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-semibold">Quarantined Items</h1>
+    <a href="/scan-now" class="bg-purple-600 hover:bg-purple-700 text-white text-sm px-4 py-2 rounded-lg shadow">
+      + Scan Now
+    </a>
+  </div>
+
+  <!-- Section 1: Quarantined Files -->
+  <div class="mb-10">
+    <h2 class="text-lg font-semibold mb-4 text-purple-400">Quarantined Files</h2>
+    <div class="overflow-x-auto rounded-xl shadow">
+      <table class="min-w-full bg-[#2a2a3b] text-left text-sm text-gray-300">
+        <thead class="bg-[#1e1e2f] text-gray-400 uppercase text-xs">
+          <tr>
+            <th class="px-4 py-3">File Name</th>
+            <th class="px-4 py-3">Location</th>
+            <th class="px-4 py-3">Risk Level</th>
+            <th class="px-4 py-3">Quarantined On</th>
+            <th class="px-4 py-3">Status</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-[#1e1e2f]">
+          <tr class="hover:bg-[#2f2f44] transition">
+            <td class="px-4 py-3 text-red-300 font-medium">trojan.exe</td>
+            <td class="px-4 py-3 truncate">/home/user/Downloads/trojan.exe</td>
+            <td class="px-4 py-3 text-red-400 font-semibold">Critical</td>
+            <td class="px-4 py-3">2025-06-19 14:23</td>
+            <td class="px-4 py-3 text-yellow-300 italic">Analyzing...</td>
+          </tr>
+          <tr class="hover:bg-[#2f2f44] transition">
+            <td class="px-4 py-3 text-yellow-300 font-medium">popup.js</td>
+            <td class="px-4 py-3 truncate">/tmp/popup.js</td>
+            <td class="px-4 py-3 text-yellow-400 font-semibold">Medium</td>
+            <td class="px-4 py-3">2025-06-18 17:45</td>
+            <td class="px-4 py-3 text-yellow-300 italic">Analyzing...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Section 2: Suspicious Network Entities -->
+  <div class="mb-6">
+    <h2 class="text-lg font-semibold mb-4 text-purple-400">Suspicious Network Entities</h2>
+    <div class="overflow-x-auto rounded-xl shadow">
+      <table class="min-w-full bg-[#2a2a3b] text-left text-sm text-gray-300">
+        <thead class="bg-[#1e1e2f] text-gray-400 uppercase text-xs">
+          <tr>
+            <th class="px-4 py-3">IP Address</th>
+            <th class="px-4 py-3">Detected Pattern</th>
+            <th class="px-4 py-3">Packet Sample</th>
+            <th class="px-4 py-3">Severity</th>
+            <th class="px-4 py-3">Status</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-[#1e1e2f]">
+          <tr class="hover:bg-[#2f2f44] transition">
+            <td class="px-4 py-3 text-red-300 font-medium">185.112.45.10</td>
+            <td class="px-4 py-3">Shellcode Payload</td>
+            <td class="px-4 py-3 truncate">\x90\x90\xeb\xfe...</td>
+            <td class="px-4 py-3 text-red-400 font-semibold">Critical</td>
+            <td class="px-4 py-3 text-red-300">Blocked</td>
+          </tr>
+          <tr class="hover:bg-[#2f2f44] transition">
+            <td class="px-4 py-3 text-orange-300 font-medium">92.154.23.78</td>
+            <td class="px-4 py-3">DNS Tunneling</td>
+            <td class="px-4 py-3 truncate">a1.b2.c3.example.com...</td>
+            <td class="px-4 py-3 text-orange-400 font-semibold">High</td>
+            <td class="px-4 py-3 text-yellow-300">Watching</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Hide Scrollbar Utility -->
+<style>
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>
+
+{% endblock %}
